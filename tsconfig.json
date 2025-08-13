@@ -1,0 +1,155 @@
+/**
+ * Description : tsconfig.json - 📌 컴파일러 옵션 및 빌드 설정을 정의하는 구성 파일
+ * Author : Shiwoo Min
+ * Date : 2025-08-12
+ */
+// npx tsc --project tsconfig.json --showConfig
+{
+  "name": "coupang-playwright-e2e",
+  "version": "1.0.0",
+  "description": "Playwright Project",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [],
+  "author": "Shiwoo Min",
+  "compilerOptions": {
+    // 프로젝트의 기본 경로 지정 (모듈 경로 설정을 위한 기준)
+    "baseUrl": ".",
+    // 모듈화를 위한 Path 설정
+    "paths": {
+      "@common/*": ["common/*"],
+      // 전체 e2e 테스트
+      "@e2e/*": ["e2e/*"],
+      // android app 테스트
+      "@e2e/aos/*": ["e2e/android-app/*"],
+      "@e2e/aos/src/*": ["e2e/android-app/src/*"],
+      // android 에뮬레이션 app 테스트
+      "@e2e/aos-emu/*": ["e2e/android-emulator-app/*"],
+      "@e2e/aos-emu/src/*": ["e2e/android-emulator-app/src/*"],
+      // api 테스트
+      "@e2e/api/*": ["e2e/api/*"],
+      "@e2e/api/src/*": ["e2e/api/src/*"],
+      // ios 에뮬레이션 app 테스트
+      "@e2e/ios-emu/*": ["e2e/ios-emulator-app/*"],
+      "@e2e/ios-emu/src/*": ["e2e/ios-emulator-app/src/*"],
+      // ios app 테스트
+      "@e2e/ios/*": ["e2e/ios-app/*"],
+      "@e2e/ios/src/*": ["e2e/ios-app/src/*"],
+      // mobile web pc 테스트
+      "@e2e/pc-mobile-web/*": ["e2e/pc-mobile-web/*"],
+      "@e2e/pc-mobile-web/src/*": ["e2e/pc-mobile-web/src/*"],
+      // mobile web android 테스트
+      "@e2e/android-mobile-web/*": ["e2e/android-mobile-web/*"],
+      "@e2e/android-mobile-web/src/*": ["e2e/android-mobile-web/src/*"],
+      // mobile web ios 테스트
+      "@e2e/ios-mobile-web/*": ["e2e/ios-mobile-web/*"],
+      "@e2e/ios-mobile-web/src/*": ["e2e/ios-mobile-web/src/*"],
+      // pc web 테스트
+      "@e2e/pc/*": ["e2e/pc-web/*"],
+      "@e2e/pc/src/*": ["e2e/pc-web/src/*"],
+      // pubsub
+      "@pubsub/*": ["pubsub/*"],
+      // mosaic
+      "@mosaic-db/*": ["mosaic-db/*"],
+      // speedtest mobile web android 테스트
+      "@speedtest/*": ["speedtest/*"],
+      "@speedtest/src/*": ["speedtest/src/*"]
+    },
+    // 컴파일된 JavaScript 파일이 저장될 디렉터리
+    "outDir": "dist",
+    // TypeScript 파일의 루트 디렉터리 지정
+    "rootDir": "./",
+    // Node.js 환경에서 사용하기 위한 모듈 시스템 설정(ESNext, NodeNext,CommonJS)
+    "module": "NodeNext",
+    // 컴파일된 코드의 타겟 ES 버전
+    "target": "ES2022",
+    // node 전역 타입(Node.js 전역 변수, 모듈 등)을 사용하기 위해 명시
+    "types": ["node"],
+    // TypeScript 타입 선언 파일(.d.ts) 생성
+    "declaration": true,
+    // 엄격한 타입 검사 모드 활성화 (타입 안정성을 높임)
+    "strict": true,
+    // 생성자에서 초기화하지 않은 클래스 프로퍼티를 허용
+    "strictPropertyInitialization": false,
+    // CommonJS 및 ES 모듈 간 상호 운용성 지원
+    "esModuleInterop": true,
+    // 라이브러리 파일(.d.ts)의 타입 검사를 건너뜀 (빌드 속도 향상)
+    "skipLibCheck": true,
+    // TS 디버깅 - 소스 맵 활성화
+    "sourceMap": true,
+    // 외부 .map 파일을 생성하여 브라우저에서 인식 가능하게 함
+    "inlineSourceMap": false,
+    // 디버깅 시 TypeScript 원본 코드 표시
+    "inlineSources": true,
+    // 오류 발생 시에도 컴파일된 파일을 출력
+    "noEmitOnError": false,
+    // 사용할 라이브러리 정의
+    "lib": ["ES2022", "DOM"],
+    // JavaScript 허용
+    "allowJs": true,
+    // 모듈 해석 방법을 Node.js 스타일로 지정
+    "moduleResolution": "NodeNext",
+    // JSON 파일을 import할 수 있도록 허용
+    "resolveJsonModule": true,
+    // 대소문자 일관성을 유지하여 파일을 가져오기 (OS 간 호환성 문제 방지)
+    "forceConsistentCasingInFileNames": true,
+    // `any` 타입을 허용하지 않음
+    "noImplicitAny": true,
+    // 타입 정의 파일 경로 지정
+    "typeRoots": ["common/types", "./node_modules/@types"],
+    // import 시 기본 내보내기 허용
+    "allowSyntheticDefaultImports": true
+  },
+  // Playwright + Appium 기반 테스트 자동화를 위한 스크립트 설정
+  "scripts": {
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "test:debug": "npx playwright test --debug",
+    "test:mobile": "npx playwright test --project=android",
+    "test:ios": "npx playwright test --project=ios",
+    "test:report": "npx playwright show-report",
+    "lint": "eslint --ext .ts,.tsx src",
+    "format": "prettier --write 'src/**/*.{ts,tsx,js,json}'",
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "docker:build": "docker build -t playwright-tests .",
+    "docker:run": "docker run --rm -v $(pwd):/app playwright-tests"
+  },
+  // TypeScript 컴파일 대상
+  "include": [
+    "common",
+    // ALL
+    "e2e",
+    // PC
+    "e2e/pc-web",
+    // MW
+    "e2e/pc-mobile-web",
+    "e2e/android-mobile-web",
+    "e2e/ios-mobile-web",
+    // ANDROID
+    "e2e/android-app",
+    "e2e/android-emulator-app",
+    // IOS
+    "e2e/ios-app",
+    "e2e/ios-emulator-app",
+    // API
+    "e2e/api",
+    // MW
+    "speedtest",
+    "batch",
+    "pubsub",
+    "mosaic-db",
+    "tests",
+    "tests-examples",
+    "playwright.config.ts",
+    // 초기화/종료
+    "GlobalSetup.ts",
+    "GlobalTeardown.ts",
+    "common/utils/test/ScriptRunner.ts"
+  ],
+  // TypeScript 컴파일 대상에서 제외
+  "exclude": ["node_modules", "dist", "example"]
+}

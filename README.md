@@ -10,7 +10,7 @@
 
 
 ## 📝 Overview
-This repository contains a modular End-to-End (E2E) automation testing framework for Coupang, leveraging **Playwright** for web automation, **Appium** for mobile automation, and **Nx** for monorepo management.  
+This repository contains a modular End-to-End (E2E) automation testing framework for Coupang, leveraging **Playwright** for web automation, **Appium** for mobile automation, and **Nx** for monorepo management.
 The framework is designed for scalability, maintainability, and seamless integration into CI/CD pipelines using **GitHub Actions**.
 
 
